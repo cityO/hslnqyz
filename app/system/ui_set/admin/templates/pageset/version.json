@@ -1,0 +1,11 @@
+{
+    "name": "pageset",
+    "version": "1.0",
+    "updatetime": "2018.01.25",
+    "file_version": {
+        "app\/system\/ui_set\/admin\/templates\/pageset\/cache\/": {
+            "pageset.css": "47903a275e1fa353b432453823472653",
+            "pageset.js": "352785bde59a942618a52f60b283f667"
+        }
+    }
+}
