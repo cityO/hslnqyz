@@ -393,7 +393,7 @@ $(function(){
 				+"</div>"
 				+"<div class='pageeditor-btn'>"
 					+"<span class='pageeditor-remark' hidden data-url='' data-rows='3'></span>"
-					+"<button class='btn btn-floating btn-success btn-xs p-0 pageeditor-editor' data-getcontent-url='"+M['weburl']+"admin/index.php?n=ui_set&c=index&a=doget_text_content&anyid=18&lang="+M['lang']+"' data-setcontent-url='"+M['weburl']+"admin/index.php?n=ui_set&c=index&a=doset_text_content&anyid=18&lang="+M['lang']+"'><i class='icon wb-pencil' aria-hidden='true'></i></button>"
+					+"<button class='btn btn-floating btn-success btn-xs p-0 pageeditor-editor' data-getcontent-url='"+basepath+"index.php?n=ui_set&c=index&a=doget_text_content&anyid=18&lang="+M['lang']+"' data-setcontent-url='"+basepath+"index.php?n=ui_set&c=index&a=doset_text_content&anyid=18&lang="+M['lang']+"'><i class='icon wb-pencil' aria-hidden='true'></i></button>"
 				+"</div>";
 			$page_iframe_contents.find("body").append(pageset_html);
 		}
@@ -467,10 +467,12 @@ $(function(){
 		// 弹出区块内容框
 		$pageset_content.click(function(event) {
 			var mid=$(this).attr('data-mid'),
-				type=$(this).attr('data-type')||'';
+				type=$(this).attr('data-type')||null,
+				$mid=$page_iframe_contents.find('[m-id='+mid+'][m-type='+type+']');
 			$content_modal.modal();
 			$content_iframe.hide();
-			var id=page_iframe_window.M['id']?page_iframe_window.M['id']:'',
+			var id=$mid.find('[name=id]').length?$mid.find('[name=id]').val():(page_iframe_window.M['id']?page_iframe_window.M['id']:''),
+				classnow=$mid.find('[name=class]').length?$mid.find('[name=class]').val():($mid.find('[name=id]').length?$mid.find('[name=id]').val():page_iframe_window.M['classnow']),
 				table='';
 			$.ajax({
 				url: $content_iframe.data('src'),
@@ -480,7 +482,7 @@ $(function(){
 					mid:mid,
 					type:type,
 					id:id,
-					classnow:page_iframe_window.M['classnow'],
+					classnow:classnow,
 					module:page_iframe_window.M['module']
 				},
 				success:function(result){
